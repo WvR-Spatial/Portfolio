@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warren van Ryn | Geospatial Scientist</title>
+    
+    <!-- Fonts: Inter for UI, Space Mono for Code/Technical feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            /* Palette: Deep Space / Dark Map Theme */
+            --bg-body: #0f172a;       /* Slate 900 */
+            --bg-card: #1e293b;       /* Slate 800 */
+            --bg-card-hover: #334155; /* Slate 700 */
+            --text-main: #f8fafc;     /* Slate 50 */
+            --text-muted: #94a3b8;    /* Slate 400 */
+            --accent: #38bdf8;        /* Sky 400 - Tech/Geo Blue */
+            --accent-secondary: #4ade80; /* Green - Environmental data */
+            
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- HEADER / NAV --- */
+        header {
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--accent);
+            letter-spacing: -0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-body);
+        }
+        .btn-primary:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border-color: var(--text-muted);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- SKILLS TICKER (Brief) --- */
+        .skills-bar {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-tag i { color: var(--accent-secondary); }
+
+        /* --- PORTFOLIO GRID --- */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .card-image {
+            height: 200px;
+            width: 100%;
+            background-color: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .card-image img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            flex-grow: 1; /* Pushes footer down */
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            background: rgba(255,255,255,0.05);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .card-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1rem;
+        }
+
+        .link-item {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .link-item:hover { color: var(--accent); }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a:hover { color: var(--accent); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Simplified for demo, normally add hamburger */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">WARREN.VR</div>
+                <div class="nav-links">
+                    <a href="#work">Projects</a>
+                    <a href="#about">About</a>
+                    <a href="mailto:professional.warren@gmail.com">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="section hero">
+            <div class="container">
+                <span class="hero-subtitle">GEOSPATIAL SCIENTIST & SYSTEMS ANALYST</span>
+                <h1>Transforming spatial data<br>into actionable intelligence.</h1>
+                <p>
+                    I bridge the gap between physical sciences, IT systems, and modern cartography. 
+                    Specializing in Python automation, WebGIS, and Digital Twins.
+                </p>
+                <div class="btn-group">
+                    <a href="#work" class="btn btn-primary">
+                        View Portfolio <i data-lucide="arrow-down"></i>
+                    </a>
+                    <a href="https://github.com/warrenvr" target="_blank" class="btn btn-outline">
+                        <i data-lucide="github"></i> GitHub
+                    </a>
+                </div>
+
+                <!-- Automated Skills Ticker -->
+                <div class="skills-bar">
+                    <div class="skill-tag"><i data-lucide="database"></i> SQL / PostGIS</div>
+                    <div class="skill-tag"><i data-lucide="code"></i> Python (Geopandas)</div>
+                    <div class="skill-tag"><i data-lucide="globe"></i> QGIS / ArcGIS</div>
+                    <div class="skill-tag"><i data-lucide="layers"></i> Remote Sensing</div>
+                    <div class="skill-tag"><i data-lucide="server"></i> System Integration</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO GRID -->
+        <section id="work" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Selected Work</h2>
+                    <p>A mix of academic research, technical automation, and WebGIS deployments.</p>
+                </div>
+                
+                <!-- This grid is populated by JavaScript below -->
+                <div id="project-container" class="project-grid">
+                    <!-- Cards will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT (Brief) -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>The Technical Pivot</h2>
+                        <p>
+                            I offer a unique blend of "Technical Pivot" experience. With over 15 years in IT Systems Analysis and a recent Bachelor of Science (Geospatial), I operate at the intersection of <strong>Operational Technology</strong> and <strong>Information Technology</strong>.
+                        </p>
+                        <p>
+                            Unlike a standard graduate, I bring enterprise maturity, stakeholder management skills, and deep systems administration knowledge. I don't just map data; I understand the infrastructure, the database, and the physics behind the sensor.
+                        </p>
+                        <p>
+                            Currently based in Melbourne, focusing on civil infrastructure, environmental management, and utilities.
+                        </p>
+                        <br>
+                        <a href="WvR_resume_nov2025.pdf" class="btn btn-outline" target="_blank">
+                            <i data-lucide="file-text"></i> Download Full Resume
+                        </a>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Years IT Experience</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">B.Sci</span>
+                            <span class="stat-label">Geospatial Science (Distinction)</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">Stack</span>
+                            <span class="stat-label">Python, SQL, QGIS, Web</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/warrenvr" target="_blank"><i data-lucide="github"></i></a>
+                <a href="https://linkedin.com/in/warren-IT-Science" target="_blank"><i data-lucide="linkedin"></i></a>
+                <a href="mailto:professional.warren@gmail.com"><i data-lucide="mail"></i></a>
+            </div>
+            <p>&copy; 2025 Warren van Ryn. Built with HTML, CSS & Vanilla JS.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIC TO POPULATE PROJECTS -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        /* -------------------------------------------------------
+           CONFIGURATION AREA
+           Update this list to change your portfolio content.
+           You don't need to touch the HTML above.
+           -------------------------------------------------------
+        */
+        const projects = [
+            {
+                title: "Bushfire Risk Assessment",
+                description: "Spatial analysis using vegetation density and historical fire data to predict high-risk zones in Victoria.",
+                tags: ["QGIS", "Remote Sensing", "Python"],
+                // Use relative paths for images (e.g., 'images/bushfire.jpg')
+                // For now, these are placeholders
+                image: "https://placehold.co/600x400/1e293b/38bdf8?text=Bushfire+Analysis", 
+                demoLink: "#",      // Link to the live map (e.g., QGIS2Web export)
+                codeLink: "https://github.com/warrenvr" // Link to the repo
+            },
+            {
+                title: "Urban Heat Island Effect",
+                description: "Processing Landsat thermal imagery to identify heat anomalies in Melbourne CBD.",
+                tags: ["ArcGIS Pro", "Image Processing", "Landsat"],
+                image: "https://placehold.co/600x400/1e293b/4ade80?text=Thermal+Imaging",
+                demoLink: "#",
+                codeLink: "#"
+            },
+            {
+                title: "Automated Data Pipeline",
+                description: "A Python script to ingest, clean, and validate field data from CSVs into a PostGIS database.",
+                tags: ["Python", "SQL", "Automation"],
+                image: "https://placehold.co/600x400/1e293b/cbd5e1?text=Python+Scripting",
+                demoLink: null, // Set to null if there is no visual demo
+                codeLink: "#"
+            },
+            {
+                title: "WebGIS Infrastructure Map",
+                description: "Interactive Leaflet map showing public utility assets with popup metadata and filtering.",
+                tags: ["Leaflet", "JavaScript", "HTML/CSS"],
+                image: "https://placehold.co/600x400/1e293b/38bdf8?text=Web+Map",
+                demoLink: "#",
+                codeLink: "#"
+            },
+            {
+                title: "LIDAR Terrain Analysis",
+                description: "Generating Digital Elevation Models (DEM) from raw LIDAR point clouds for flood modeling.",
+                tags: ["LIDAR", "3D Visualization", "Physics"],
+                image: "https://placehold.co/600x400/1e293b/a855f7?text=LIDAR+Point+Cloud",
+                demoLink: "#",
+                codeLink: "#"
+            },
+            {
+                title: "Geospatial Field Collection",
+                description: "Workflow design for mobile data collection using GNSS rovers and field tablets.",
+                tags: ["Field Ops", "GNSS", "Surveying"],
+                image: "https://placehold.co/600x400/1e293b/f59e0b?text=Field+Collection",
+                demoLink: null,
+                codeLink: "#"
+            }
+        ];
+
+        /* RENDER FUNCTION
+           This loop creates the HTML for each project card.
+        */
+        const container = document.getElementById('project-container');
+
+        projects.forEach(project => {
+            // Create Tags HTML
+            const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+            // Create Links HTML (Only show if link exists)
+            let linksHtml = '';
+            if (project.demoLink) {
+                linksHtml += `<a href="${project.demoLink}" class="link-item" target="_blank"><i data-lucide="globe" width="16"></i> Live Map</a>`;
+            }
+            if (project.codeLink) {
+                linksHtml += `<a href="${project.codeLink}" class="link-item" target="_blank"><i data-lucide="code" width="16"></i> Code</a>`;
+            }
+
+            // Build Card HTML
+            const cardHtml = `
+                <article class="project-card">
+                    <div class="card-image">
+                        <img src="${project.image}" alt="${project.title}">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-tags">${tagsHtml}</div>
+                        <h3 class="card-title">${project.title}</h3>
+                        <p class="card-desc">${project.description}</p>
+                        <div class="card-links">
+                            ${linksHtml}
+                        </div>
+                    </div>
+                </article>
+            `;
+
+            container.innerHTML += cardHtml;
+        });
+
+        // Re-run icons for dynamically added content
+        lucide.createIcons();
+    </script>
+</body>
+</html>
