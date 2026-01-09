@@ -471,11 +471,10 @@
                 title: "Site Suitability analysis - Weighted Overlay",
                 description: "A Multi-Criteria Evaluation (MCE) for sustainable development in the Condamine Catchment. Created using ArcGIS pro, presented using ArcGIS Online & Esri StoryMaps",
                 tags: ["ArcGIS", "Map Algebra", "Weighted Overlay", "Reclassification"],
-                // Use relative paths for images (e.g., 'images/bushfire.jpg')
-                // For now, these are placeholders
                 image: "suitability_weightedOverlay_600x400.jpg", 
-                demoLink: "https://storymaps.arcgis.com/stories/68f150caa9904243a43507813ec82e93",      // Link to the live map (e.g., QGIS2Web export)
-                codeLink: "https://wvrspatial.maps.arcgis.com/home/item.html?id=bd32a86c0d85434c957a507337ea4e8d" // Link to the repo
+                demoLink: "https://storymaps.arcgis.com/stories/68f150caa9904243a43507813ec82e93",      
+                codeLink: "https://wvrspatial.maps.arcgis.com/home/item.html?id=bd32a86c0d85434c957a507337ea4e8d",
+                pdfLink: null // Example: "docs/suitability_report.pdf"
             },
             {
                 title: "Live Satellite Fire Tracker",
@@ -483,15 +482,17 @@
                 tags: ["GeoJSON", "MapLibre GL", "Real-Time API", "JavaScript"],
                 image: "burningGeoJSON600x400.png",
                 demoLink: "https://wvr-spatial.github.io/burningGeoJSON/index.html",
-                codeLink: "https://github.com/WvR-Spatial/burningGeoJSON/blob/main/index.html"
+                codeLink: "https://github.com/WvR-Spatial/burningGeoJSON/blob/main/index.html",
+                pdfLink: null
             },
             {
                 title: "Seismic Risk Monitor",
                 description: "An automated ETL pipeline that collects live USGS earthquake data to identify at-risk population centers. Features robust geometry handling for the International Date Line and generates an interactive dark-mode dashboard.",
                 tags: ["Python", "Geopandas", "Folium", "Real-Time"],
                 image: "seismicOutput600x400.png",
-                demoLink: "https://wvr-spatial.github.io/seismicPython/risk_analysis_output/seismic_risk_map.html", // Set to null if there is no visual demo
-                codeLink: "https://github.com/WvR-Spatial/seismicPython/blob/main/seismic_risk_monitor.ipynb"
+                demoLink: "https://wvr-spatial.github.io/seismicPython/risk_analysis_output/seismic_risk_map.html", 
+                codeLink: "https://github.com/WvR-Spatial/seismicPython/blob/main/seismic_risk_monitor.ipynb",
+                pdfLink: null
             },
             {
                 title: "Interactive Spatial Analytics",
@@ -499,7 +500,8 @@
                 tags: ["Turf.js", "MapLibre", "Business Intelligence", "Chart.js"],
                 image: "CrimeEye_london600x400.png",
                 demoLink: "https://wvr-spatial.github.io/LondonCrime_dashboard/UKcrime_dashboard.html",
-                codeLink: "https://github.com/WvR-Spatial/LondonCrime_dashboard/blob/main/UKcrime_dashboard.html"
+                codeLink: "https://github.com/WvR-Spatial/LondonCrime_dashboard/blob/main/UKcrime_dashboard.html",
+                pdfLink: null
             },
             {
                 title: "Revealing the Ancient Murray via Relative Elevation Models",
@@ -507,7 +509,8 @@
                 tags: ["LiDAR", "Remote Sensing", "QGIS", "Spatial Analysis", "REM", "Geomorphology"],
                 image: "REM_Murray_600x400.png",
                 demoLink: "https://wvr-spatial.github.io/LiDAR_REM/REM_Murray_portfolio.png",
-                codeLink: null
+                codeLink: null,
+                pdfLink: null
             },
             {
                 title: "Snake Valley OrthoMosaic & DSM",
@@ -515,7 +518,8 @@
                 tags: ["Field Ops", "GNSS", "Surveying", "Photogrammetry", "DSM"],
                 image: "https://placehold.co/600x400/1e293b/f59e0b?text=Digital+Surface+Model",
                 demoLink: "#",
-                codeLink: "#"
+                codeLink: "#",
+                pdfLink: "pdfs/snake_valley_report.pdf" // Example of a PDF link being active
             },
             {
                 title: "WebGIS Integration FOMC",
@@ -523,7 +527,8 @@
                 tags: ["Leaflet", "JavaScript", "HTML/CSS"],
                 image: "FOMC_subgroups_webpage_currentMap600x400.png",
                 demoLink: "https://wvr-spatial.github.io/FOMC/testLayout.html",
-                codeLink: "https://github.com/WvR-Spatial/FOMC"
+                codeLink: "https://github.com/WvR-Spatial/FOMC",
+                pdfLink: null
             },
             {
                 title: "Australian Shark Interaction Database",
@@ -531,7 +536,8 @@
                 tags: ["Python", "Sharks", "other TAGS"],
                 image: "https://placehold.co/600x400/1e293b/a855f7?text=ASID+Visualisation",
                 demoLink: "#",
-                codeLink: "#"
+                codeLink: "#",
+                pdfLink: null
             },
             {
                 title: "Photometric Image Comparison",
@@ -539,7 +545,8 @@
                 tags: ["Photometry", "Planet Hunting", "Astronomy"],
                 image: "https://placehold.co/600x400/1e293b/f59e0b?text=Exo-Planet+Detection",
                 demoLink: null,
-                codeLink: "#"
+                codeLink: "#",
+                pdfLink: null
             }
         ];
 
@@ -554,11 +561,18 @@
 
             // Create Links HTML (Only show if link exists)
             let linksHtml = '';
+            
+            // 1. Live Map Link
             if (project.demoLink) {
                 linksHtml += `<a href="${project.demoLink}" class="link-item" target="_blank"><i data-lucide="globe" width="16"></i> Live Map</a>`;
             }
+            // 2. Code Link
             if (project.codeLink) {
                 linksHtml += `<a href="${project.codeLink}" class="link-item" target="_blank"><i data-lucide="code" width="16"></i> Code</a>`;
+            }
+            // 3. PDF Link (New Addition)
+            if (project.pdfLink) {
+                linksHtml += `<a href="${project.pdfLink}" class="link-item" target="_blank"><i data-lucide="file-text" width="16"></i> PDF</a>`;
             }
 
             // Build Card HTML
