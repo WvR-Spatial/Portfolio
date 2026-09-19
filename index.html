@@ -487,11 +487,11 @@
             },
             {
                 title: "Seismic Risk Monitor",
-                description: "An automated ETL pipeline that collects live USGS earthquake data to identify at-risk population centers. Features robust geometry handling for the International Date Line and generates an interactive dark-mode dashboard.",
-                tags: ["Python", "Geopandas", "Folium", "Real-Time"],
+                description: "Screens the live USGS earthquake feed for populated places inside a true geodesic impact radius, then rebuilds and publishes itself every six hours through GitHub Actions. Includes a tested correction for the Web Mercator distance error that silently under-detects risk at high latitudes.",
+                tags: ["Python", "Geopandas", "Geodesic Analysis", "CI/CD", "GitHub Actions"],
                 image: "seismicOutput600x400.png",
                 demoLink: "https://wvr-spatial.github.io/seismicPython/", 
-                codeLink: null,
+                codeLink: "https://github.com/WvR-Spatial/seismicPython/",
                 pdfLink: null
             },
             {
